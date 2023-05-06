@@ -127,4 +127,20 @@ Public Class Form1
         da.Fill(dt)
         DataGridViewProduit.DataSource = dt
     End Sub
+
+    Private Sub BtnImpression_Click(sender As Object, e As EventArgs) Handles BtnImpression.Click
+        PrintPreviewDialog1.Document = PrintDocument1
+        PrintPreviewDialog1.PrintPreviewControl.Zoom = 1
+        PrintPreviewDialog1.ShowDialog()
+    End Sub
+
+    Private Sub PrintDocument1_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
+        Dim imagebmp As New Bitmap(Me.DataGridViewProduit.Width, Me.DataGridViewProduit.Height)
+        DataGridViewProduit.DrawToBitmap(imagebmp, New Rectangle(0, 0, Me.DataGridViewProduit.Width, Me.DataGridViewProduit.Height))
+        e.Graphics.DrawImage(imagebmp, 150, 100)
+    End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
+    End Sub
 End Class

@@ -22,13 +22,19 @@ Partial Class Form1
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.BtnSearch = New System.Windows.Forms.Button()
         Me.Search = New System.Windows.Forms.TextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.DataGridViewProduit = New System.Windows.Forms.DataGridView()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BtnImpression = New System.Windows.Forms.Button()
         Me.btnupdateprod = New System.Windows.Forms.Button()
         Me.btndeleteprod = New System.Windows.Forms.Button()
         Me.btnreloadprod = New System.Windows.Forms.Button()
@@ -45,11 +51,8 @@ Partial Class Form1
         Me.Label3 = New System.Windows.Forms.Label()
         Me.idprodtxt = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
+        Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.Panel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.DataGridViewProduit, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -62,7 +65,7 @@ Partial Class Form1
         Me.Panel1.Controls.Add(Me.BtnSearch)
         Me.Panel1.Controls.Add(Me.Search)
         Me.Panel1.Controls.Add(Me.GroupBox2)
-        Me.Panel1.Controls.Add(Me.Button2)
+        Me.Panel1.Controls.Add(Me.BtnImpression)
         Me.Panel1.Controls.Add(Me.btnupdateprod)
         Me.Panel1.Controls.Add(Me.btndeleteprod)
         Me.Panel1.Controls.Add(Me.btnreloadprod)
@@ -123,18 +126,50 @@ Partial Class Form1
         Me.DataGridViewProduit.Size = New System.Drawing.Size(521, 230)
         Me.DataGridViewProduit.TabIndex = 0
         '
-        'Button2
+        'Column1
         '
-        Me.Button2.BackColor = System.Drawing.Color.DarkGreen
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Button2.Location = New System.Drawing.Point(338, 399)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(130, 32)
-        Me.Button2.TabIndex = 27
-        Me.Button2.Text = "IMPRESSION"
-        Me.Button2.UseVisualStyleBackColor = False
+        Me.Column1.DataPropertyName = "id_prod"
+        Me.Column1.HeaderText = "N°"
+        Me.Column1.Name = "Column1"
+        Me.Column1.Width = 50
+        '
+        'Column2
+        '
+        Me.Column2.DataPropertyName = "categorie"
+        Me.Column2.HeaderText = "Categorie"
+        Me.Column2.Name = "Column2"
+        '
+        'Column3
+        '
+        Me.Column3.DataPropertyName = "code"
+        Me.Column3.HeaderText = "Code"
+        Me.Column3.Name = "Column3"
+        '
+        'Column4
+        '
+        Me.Column4.DataPropertyName = "libelle"
+        Me.Column4.HeaderText = "Libelle"
+        Me.Column4.Name = "Column4"
+        Me.Column4.Width = 130
+        '
+        'Column
+        '
+        Me.Column.DataPropertyName = "qte_stock"
+        Me.Column.HeaderText = "Quantité"
+        Me.Column.Name = "Column"
+        '
+        'BtnImpression
+        '
+        Me.BtnImpression.BackColor = System.Drawing.Color.DarkGreen
+        Me.BtnImpression.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnImpression.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnImpression.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.BtnImpression.Location = New System.Drawing.Point(338, 399)
+        Me.BtnImpression.Name = "BtnImpression"
+        Me.BtnImpression.Size = New System.Drawing.Size(130, 32)
+        Me.BtnImpression.TabIndex = 27
+        Me.BtnImpression.Text = "IMPRESSION"
+        Me.BtnImpression.UseVisualStyleBackColor = False
         '
         'btnupdateprod
         '
@@ -311,37 +346,18 @@ Partial Class Form1
         Me.Button1.TabIndex = 1
         Me.Button1.UseVisualStyleBackColor = False
         '
-        'Column1
+        'PrintPreviewDialog1
         '
-        Me.Column1.DataPropertyName = "id_prod"
-        Me.Column1.HeaderText = "N°"
-        Me.Column1.Name = "Column1"
-        Me.Column1.Width = 50
+        Me.PrintPreviewDialog1.AutoScrollMargin = New System.Drawing.Size(0, 0)
+        Me.PrintPreviewDialog1.AutoScrollMinSize = New System.Drawing.Size(0, 0)
+        Me.PrintPreviewDialog1.ClientSize = New System.Drawing.Size(400, 300)
+        Me.PrintPreviewDialog1.Enabled = True
+        Me.PrintPreviewDialog1.Icon = CType(resources.GetObject("PrintPreviewDialog1.Icon"), System.Drawing.Icon)
+        Me.PrintPreviewDialog1.Name = "PrintPreviewDialog1"
+        Me.PrintPreviewDialog1.Visible = False
         '
-        'Column2
+        'PrintDocument1
         '
-        Me.Column2.DataPropertyName = "categorie"
-        Me.Column2.HeaderText = "Categorie"
-        Me.Column2.Name = "Column2"
-        '
-        'Column3
-        '
-        Me.Column3.DataPropertyName = "code"
-        Me.Column3.HeaderText = "Code"
-        Me.Column3.Name = "Column3"
-        '
-        'Column4
-        '
-        Me.Column4.DataPropertyName = "libelle"
-        Me.Column4.HeaderText = "Libelle"
-        Me.Column4.Name = "Column4"
-        Me.Column4.Width = 130
-        '
-        'Column
-        '
-        Me.Column.DataPropertyName = "qte_stock"
-        Me.Column.HeaderText = "Quantité"
-        Me.Column.Name = "Column"
         '
         'Form1
         '
@@ -351,7 +367,7 @@ Partial Class Form1
         Me.Controls.Add(Me.Panel1)
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Utilisareur"
+        Me.Text = "Sous_Categories"
         Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
@@ -369,7 +385,7 @@ Partial Class Form1
     Friend WithEvents Search As TextBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents DataGridViewProduit As DataGridView
-    Friend WithEvents Button2 As Button
+    Friend WithEvents BtnImpression As Button
     Friend WithEvents btnupdateprod As Button
     Friend WithEvents btndeleteprod As Button
     Friend WithEvents btnreloadprod As Button
@@ -391,4 +407,6 @@ Partial Class Form1
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
     Friend WithEvents Column As DataGridViewTextBoxColumn
+    Friend WithEvents PrintPreviewDialog1 As PrintPreviewDialog
+    Friend WithEvents PrintDocument1 As Printing.PrintDocument
 End Class
